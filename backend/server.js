@@ -4,13 +4,16 @@ import connectDB from "./database/db.js"
 import dns from "node:dns/promises";
 dns.setServers(["1.1.1.1"]);
 import userRoute from './routes/userRoute.js'
-
+import cors from 'cors'
 const app = express()
 const PORT = process.env.PORT || 3000
 
 //middleware
 app.use(express.json())
-
+app.use(cors({
+    origin:'http://localhost:5173',
+    credentials:true
+}))
 
 
 //http://localhost:8000/api/v1/user/register
