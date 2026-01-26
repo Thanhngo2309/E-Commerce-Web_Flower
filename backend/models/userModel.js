@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     firstName: {type: String, require: true},
-    LastName: {type: String, require: true},
+    lastName: {type: String, require: true},
     profilePic: {type: String, default: ""}, // cloduinary image url
     profilePicPublicId: {type: String, default: ""}, //cloduinary Public_id for deletion
     email: {type: String, require: true, unique:true},

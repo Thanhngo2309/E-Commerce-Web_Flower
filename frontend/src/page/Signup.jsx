@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import axios from 'axios'
 import { toast } from 'sonner'
 
@@ -52,6 +52,8 @@ const Signup = () => {
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.message)
+        } finally{
+           setLoading(true)
         }
     }
   return (
@@ -142,7 +144,9 @@ const Signup = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2">
         <Button onClick={submidHandler} type="submit" className="w-full cursor-pointer bg-pink-400 hover:bg-pink-300">
-         Sign up
+        
+        {loading ? <><Loader2 className='h-4 w-4 animate-spin mr-2'/>Please wait</> : 'Signup'}
+        
         </Button>
         <p className='text-gray-700 text-sm'>Already have an account? 
             <Link to={'/login'} className='hover:underline cursor-pointer text-pink-800'>Login</Link>
