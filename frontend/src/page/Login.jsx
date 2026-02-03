@@ -151,7 +151,7 @@ const Login = () => {
         
         </Button>
         <p className='text-gray-700 text-sm'>Don't have an account?
-            <Link to={'/signin'} className='hover:underline cursor-pointer text-pink-800'>Sign up</Link>
+            <Link to={'/signup'} className='hover:underline cursor-pointer text-pink-800'>Sign up</Link>
         </p>
         
       </CardFooter>

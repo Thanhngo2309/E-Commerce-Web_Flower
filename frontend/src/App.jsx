@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from './components/ui/button'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './page/Home'
@@ -7,6 +6,7 @@ import Login from './page/Login'
 import Signup from './page/signUp'
 import Verify from './page/Verify'
 import VerifyEmail from './page/VerifyEmail'
+import Profile from './page/profile'
 
 const router = createBrowserRouter([
   {
@@ -30,7 +30,13 @@ const router = createBrowserRouter([
     path:'/verify/:token',
     element: <><VerifyEmail/></>
     
+  },
+    {
+    path:'/profile',
+    element: <><Navbar/><Profile/></>
+    
   }
+  
 ])
 
 const App = () => {
