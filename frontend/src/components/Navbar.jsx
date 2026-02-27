@@ -9,7 +9,9 @@ import { setUser } from '@/redux/userSlice'
 
 const Navbar = () => {
   const {user} = useSelector(store=>store.user)
+  const {cart} = useSelector(store=>store.product)
   const accessToken = localStorage.getItem('accessToken')
+  const admin = user?.role === 'admin' ? true : false
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const logoutHandler = async()=>{
@@ -20,8 +22,10 @@ const Navbar = () => {
         }
       })
       if(res.data.success){
+        localStorage.removeItem("accessToken") 
         dispatch(setUser(null))
         toast.success(res.data.message)
+           
       }
     } catch (error) {
       console.log(error)
@@ -45,12 +49,15 @@ const Navbar = () => {
             {user && (
               <Link to={`/profile/${user._id}`}><li>Hello, {user.firstName}</li></Link>
             )}
+            {admin && (
+              <Link to={`/dashboard/sales`}><li>DashBoard</li></Link>
+            )}
           </ul>
 
           <Link to='/cart' className='relative'>
             <ShoppingCart />
             <span className='bg-pink-500 rounded-full absolute text-white -top-3 -right-5 px-2'>
-              0
+              {cart.items.length}
             </span>
           </Link>
           {

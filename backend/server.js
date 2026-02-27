@@ -5,6 +5,7 @@ import dns from "node:dns/promises";
 dns.setServers(["1.1.1.1"]);
 import userRoute from './routes/userRoute.js'
 import productRoute from './routes/productRoute.js'
+import cartRoute from './routes/cartRoute.js'
 import cors from 'cors'
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -21,6 +22,7 @@ app.use(cors({
 
 app.use('/api/v1/user', userRoute)
 app.use('/api/v1/product', productRoute)
+app.use('/api/v1/cart', cartRoute)
 app.listen(PORT,()=>{
     connectDB()
     console.log(`Sever is listening at port: ${PORT}`)
