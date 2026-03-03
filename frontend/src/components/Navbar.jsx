@@ -57,7 +57,7 @@ const Navbar = () => {
           <Link to='/cart' className='relative'>
             <ShoppingCart />
             <span className='bg-pink-500 rounded-full absolute text-white -top-3 -right-5 px-2'>
-              {cart.items.length}
+              {cart?.items?.length}
             </span>
           </Link>
           {

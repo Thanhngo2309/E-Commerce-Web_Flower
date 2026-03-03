@@ -1,6 +1,7 @@
 import Breadcrum from '@/components/Breadcrum'
 import ProductDesc from '@/components/ProductDesc'
-import Productlmg from '@/components/Productlmg'
+import ProductImg from '@/components/ProductImg'
+
 import store from '@/redux/store'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -15,7 +16,7 @@ const SingleProduct = () => {
     <div className='pt-30 py-10 max-w-7xl mx-auto'>
         <Breadcrum product={product}/>
         <div className='mt-10 grid grid-cols-2 items-start'>
-            <Productlmg images={product.productImg}/>
+            <ProductImg images={product.productImg}/>
             <ProductDesc product={product}/>
         </div>
     </div>

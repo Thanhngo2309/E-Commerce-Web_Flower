@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
-const Productlmg = ({images}) => {
+const ProductImg = ({images}) => {
     const [mainImg, setMainImg] = useState(images[0].url)
   return (
     <div className='flex gap-5 w-max'>
@@ -19,4 +19,4 @@ const Productlmg = ({images}) => {
   )
 }
 
-export default Productlmg
+export default ProductImg

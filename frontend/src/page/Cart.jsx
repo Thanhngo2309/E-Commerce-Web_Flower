@@ -23,7 +23,7 @@ const Cart = () => {
 
     const loadCart = async () => {
         try {
-            const res = await axios.get(`${API}/get`, {
+            const res = await axios.get(`${API}/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }

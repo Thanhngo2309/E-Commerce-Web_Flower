@@ -29,6 +29,7 @@ const Profile = () => {
   const userId = params.userId
   const [updateUser, setUpdateUser] = useState({
     firstName: user?.firstName,
+    email: user?.email,
     lastName: user?.lastName,
     phoneNo: user?.phoneNo,
     address: user?.address,
@@ -93,7 +94,7 @@ const Profile = () => {
         <div>
             <div className='flex flex-col justify-center items-center bg-gray-100'>
                 <h1 className="text-2xl font-bold mb-7">Update Profile</h1>
-                <div className='w-full flex gap-10 justify-between items-start px-7 max-w-2x1'>
+                <div className='w-full  flex gap-10 justify-between items-start px-7 max-w-2xl'>
                     {/* profile picture section */}
                     <div className='flex flex-col items-center'>
                         <img src={updateUser?.profilePic || userLogo} alt="profile" className='w-32 h-32 rounded-full object-cover border-4 border-pink-800' />

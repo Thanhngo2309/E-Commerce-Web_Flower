@@ -1,6 +1,6 @@
 import FilterSidebar from '@/components/FilterSidebar'
 import React, { useEffect, useState } from 'react'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     Select,
     SelectContent,
@@ -19,7 +19,7 @@ import { setProducts } from '@/redux/productSlice'
 
 
 const Products = () => {
-    const {products} = useSelector((state) => state.product)
+    const { products } = useSelector((state) => state.product)
     const [allProducts, setAllProducts] = useState([])
     const [priceRange, setPriceRange] = useState([0, 1000000])
     const [search, setSearch] = useState('')
@@ -30,78 +30,74 @@ const Products = () => {
     const getAllProducts = async () => {
         try {
             const res = await axios.get('http://localhost:8000/api/v1/product/getallproducts')
-            if(res.data.success){
+            if (res.data.success) {
                 setAllProducts(res.data.products)
                 dispatch(setProducts(res.data.products))
             }
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message || 'Failed to fetch products')
-            
+
         }
     }
 
     useEffect(() => {
-        if(allProducts.length === 0){
-            return;
-        }
-        let filtered = [...allProducts]
+  if (allProducts.length === 0) return
 
-        // filter by search
-        if(search.trim() !== ''){
-            filtered = filtered.filter((product) => product.productName.toLowerCase().includes(search.toLowerCase()))
-        }
+  let filtered = [...allProducts]
 
-        if(category !== 'All'){
-            filtered = filtered.filter((product) => product.category === category)  
-        }
-        if(brand !== 'All'){
-            filtered = filtered.filter((product) => product.brand === brand)  
-        }
-        if(priceRange){
-            filtered = filtered.filter((product) => product.productPrice >= priceRange[0] && product.productPrice <= priceRange[1])
-        }
-        if(sortOrder === 'lowtohigh'){
-            filtered.sort((a, b) => a.productPrice - b.productPrice)
-        }
-        else if(sortOrder === 'hightolow'){
-            filtered.sort((a, b) => b.productPrice - a.productPrice)
-        }
-        else if(sortOrder === 'atoz'){
-            filtered.sort((a, b) => a.productName.localeCompare(b.productName))
-        }
-        else if(sortOrder === 'ztoa'){
-            filtered.sort((a, b) => b.productName.localeCompare(a.productName))
-        }
-        dispatch(setProducts(filtered))
-            
-        
-    }, [search, category, brand, priceRange, sortOrder])
+  if (search.trim()) {
+    filtered = filtered.filter(p =>
+      p.productName.toLowerCase().includes(search.toLowerCase())
+    )
+  }
+
+  if (category !== 'All') {
+    filtered = filtered.filter(p => p.category === category)
+  }
+
+  if (brand !== 'All') {
+    filtered = filtered.filter(p => p.brand === brand)
+  }
+
+  filtered = filtered.filter(p =>
+    p.productPrice >= priceRange[0] &&
+    p.productPrice <= priceRange[1]
+  )
+
+  if (sortOrder === 'lowtohigh') {
+    filtered.sort((a, b) => a.productPrice - b.productPrice)
+  } else if (sortOrder === 'hightolow') {
+    filtered.sort((a, b) => b.productPrice - a.productPrice)
+  }
+
+  dispatch(setProducts(filtered))   // UPDATE REDUX SAU FILTER
+}, [allProducts, search, category, brand, priceRange, sortOrder, dispatch])
 
     useEffect(() => {
         getAllProducts()
     }, [])
 
-    
+
     return (
         <div className='pt-30 pb-10'>
             <div className='max-w-7xl mx-auto flex gap-7'>
                 {/* sidebar */}
-                <FilterSidebar 
-                allProducts = {allProducts} 
-                priceRange = {priceRange} 
-                setSearch = {setSearch}
-                setCategory = {setCategory}
-                setBrand = {setBrand}
-                search = {search}
-                category = {category}
-                brand = {brand}
-                setPriceRange = {setPriceRange}
+                <FilterSidebar
+                    allProducts={allProducts}
+                    priceRange={priceRange}
+                    setSearch={setSearch}
+                    setCategory={setCategory}
+                    setBrand={setBrand}
+                    search={search}
+                    category={category}
+                    brand={brand}
+                    setPriceRange={setPriceRange}
                 />
                 {/* Main product section */}
                 <div className='flex flex-col flex-1'>
                     <div className='flex justify-end mb-4'>
-                        <Select>
+                        <Select onValueChange={(value) => setSortOrder(value)}>
                             <SelectTrigger className="w-[200px]">
                                 <SelectValue placeholder="Sort by price" />
                             </SelectTrigger>
@@ -110,9 +106,7 @@ const Products = () => {
                                     <SelectLabel>Sort By</SelectLabel>
                                     <SelectItem value="lowtohigh">Price: Low to High</SelectItem>
                                     <SelectItem value="hightolow">Price: High to Low</SelectItem>
-                                    <SelectItem value="atoz">Name: A to Z</SelectItem>
-                                    <SelectItem value="ztoa">Name: Z to A</SelectItem>
-                                    <SelectItem value="newestfirst">Newest First</SelectItem>
+
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -122,7 +116,7 @@ const Products = () => {
                         {/* map through products and render ProductCard */}
                         {
                             products.map((product) => {
-                                return <ProductCard key={product._id} product={product}/>
+                                return <ProductCard key={product._id} product={product} />
                             })
                         }
                     </div>
