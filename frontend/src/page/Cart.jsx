@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ShoppingCart, Trash2 } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { setCart } from '@/redux/productSlice'
 import { toast } from 'sonner'
@@ -18,7 +18,7 @@ const Cart = () => {
     const total = subtotal + shipping + tax
     const dispatch = useDispatch()
     const accessToken = localStorage.getItem('accessToken')
-
+    const navigate = useNavigate()
     const API = 'http://localhost:8000/api/v1/cart'
 
     const loadCart = async () => {
@@ -127,7 +127,7 @@ const Cart = () => {
                                             <Input placeholder='Promo code' />
                                             <Button variant='outline'>Apply</Button>
                                         </div>
-                                        <Button className='bg-pink-600 text-white w-full'>PLACE ORDER</Button>
+                                        <Button onClick={()=> navigate('/address')} className='bg-pink-600 text-white w-full'>PLACE ORDER</Button>
                                         <Button variant='outline' className='w-full'>
                                             <Link to='/products'>CONTINUE SHOPPING</Link>
                                         </Button>                 

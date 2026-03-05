@@ -10,15 +10,16 @@ import Profile from './page/profile'
 import Products from './page/Products'
 import Cart from './page/Cart'
 import Dashboard from './page/Dashboard'
-import AdminSales from './admin/AdminSales'
-import AdminProduct from './admin/AdminProduct'
-import AddProduct from './admin/AddProduct'
-import AdminOrder from './admin/AdminOrder'
-import ShowUserOrder from './admin/ShowUserOrder'
-import AdminUsers from './admin/AdminUsers'
-import UserInfo from './admin/UserInfo'
+import AdminSales from './page/admin/AdminSales'
+import AdminProduct from './page/admin/AdminProduct'
+import AddProduct from './page/admin/AddProduct'
+import AdminOrder from './page/admin/AdminOrder'
+import ShowUserOrder from './page/admin/ShowUserOrder'
+import AdminUsers from './page/admin/AdminUsers'
+import UserInfo from './page/admin/UserInfo'
 import ProtectedRoute from './components/ProtectedRoute'
 import SingleProduct from './page/SingleProduct'
+import AddressForm from './page/AddressForm'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path:'/cart',
     element: <ProtectedRoute><Navbar/><Cart/></ProtectedRoute>
+  },
+  {
+    path:'/address',
+    element: <ProtectedRoute><AddressForm/></ProtectedRoute>
   },
   {
     path:'/dashboard',

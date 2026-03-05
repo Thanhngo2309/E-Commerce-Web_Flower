@@ -72,7 +72,7 @@ const Products = () => {
   }
 
   dispatch(setProducts(filtered))   // UPDATE REDUX SAU FILTER
-}, [allProducts, search, category, brand, priceRange, sortOrder, dispatch])
+}, [allProducts, search, category, brand, priceRange, sortOrder])
 
     useEffect(() => {
         getAllProducts()

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import userLogo from "../assets/userLogo.png"
+import userLogo from "../../assets/userLogo.png"
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,6 +17,7 @@ const UserInfo = () => {
   const [file, setFile] = useState(null)
   const { user } = useSelector(store => store.user)
   const dispatch = useDispatch()
+
   const params = useParams()
   const userId = params.id
   const handleChange = (e) => {
@@ -49,10 +50,12 @@ const UserInfo = () => {
 
         }
       })
-
+      if (userId === user._id) {
+        dispatch(setUser(res.data.user)) 
+      }
       if (res.data.success) {
         toast.success(res.data.message)
-        dispatch(setUser(res.data.user))
+        navigate(-1)
       }
     } catch (error) {
       console.log(error)
@@ -127,14 +130,14 @@ const UserInfo = () => {
               </div>
               <div className="flex gap-3 items-center">
                 <Label className="block text-sm font-medium">Role :</Label>
-                <RadioGroup value={updateUser?.role} 
-                className='flex items-center'
-                onValueChange={(value)=>setUpdateUser({...updateUser, role:value})}
+                <RadioGroup value={updateUser?.role}
+                  className='flex items-center'
+                  onValueChange={(value) => setUpdateUser({ ...updateUser, role: value })}
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="user" id="user"/>
+                    <RadioGroupItem value="user" id="user" />
                     <Label htmlFor="user">User</Label>
-                     <RadioGroupItem value="admin" id="admin"/>
+                    <RadioGroupItem value="admin" id="admin" />
                     <Label htmlFor="admin">Admin</Label>
                   </div>
                 </RadioGroup>

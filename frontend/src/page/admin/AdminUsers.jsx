@@ -2,7 +2,7 @@ import { Input } from '@/components/ui/input'
 import axios from 'axios'
 import { Edit, Eye, Search } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import userLogo from "../assets/userLogo.png"
+import userLogo from "../../assets/userLogo.png"
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 const AdminUsers = () => {
