@@ -20,6 +20,8 @@ import UserInfo from './page/admin/UserInfo'
 import ProtectedRoute from './components/ProtectedRoute'
 import SingleProduct from './page/SingleProduct'
 import AddressForm from './page/AddressForm'
+import CheckOut from './page/CheckOut'
+import OrderSuccess from './page/OrderSuccess'
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,15 @@ const router = createBrowserRouter([
     path:'/address',
     element: <ProtectedRoute><AddressForm/></ProtectedRoute>
   },
+  {
+    path:'/order-success',
+    element: <ProtectedRoute><OrderSuccess/></ProtectedRoute>
+  },
+  {
+    path:'/checkout',
+    element: <CheckOut/>
+  },
+
   {
     path:'/dashboard',
     element: <ProtectedRoute adminOnly={true}><Navbar/><Dashboard/></ProtectedRoute>,

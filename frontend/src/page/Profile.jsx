@@ -23,6 +23,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { setUser } from '@/redux/userSlice'
+import MyOrder from './MyOrder'
 const Profile = () => {
   const {user} = useSelector((state)=>state.user)
   const params = useParams()
@@ -142,18 +143,8 @@ const Profile = () => {
         </div>
       </TabsContent>
       <TabsContent value="orders">
-        <Card>
-          <CardHeader>
-            <CardTitle>Orders</CardTitle>
-            <CardDescription>
-              Track performance and user engagement metrics. Monitor trends and
-              identify growth opportunities.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-muted-foreground text-sm">
-            Page views are up 25% compared to last month.
-          </CardContent>
-        </Card>
+        <MyOrder/>
+        
       </TabsContent>
       <TabsContent value="reports">
         <Card>

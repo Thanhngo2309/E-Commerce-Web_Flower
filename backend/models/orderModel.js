@@ -18,10 +18,10 @@ const orderSchema = new mongoose.Schema({
     amount:{type:Number,required:true},
     shipping:{type:Number,required:true},
     tax:{type:Number,required:true},
-    currency:{type:Number,default:"VND"},
-    status:{type:String, enum:["Pending","Paid", "Failed"], default:"Pending"}
+    currency:{type:String,default:"VND"},
+    status:{type:String, enum:["Pending","Paid", "Failed"], default:"Pending"},
+    txnRef:{type:String,unique:true}
 
-
-})
+},{timestamps:true})
 
 export const Order = mongoose.model("Order",orderSchema)

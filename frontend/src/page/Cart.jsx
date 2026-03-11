@@ -49,7 +49,7 @@ const Cart = () => {
             console.log(error)
         }
     }
-    
+
     const handleRemove = async (productId) => {
         try {
             const res = await axios.delete(`${API}/remove`, {
@@ -68,7 +68,7 @@ const Cart = () => {
     }
     useEffect(() => {
         loadCart()
-    },[dispatch])
+    }, [dispatch])
     return (
         <div className='pt-30 bg-gray-50 min-h-screen'>
             {
@@ -80,7 +80,7 @@ const Cart = () => {
                                 return <Card key={index}>
                                     <div className='flex justify-between p-4 items-center'>
                                         <div className='flex gap-4 items-center w-[350px]'>
-                                            <img src={product?.productId?.productImg?.[0]?.url || userLogo } alt={product.name} className='w-25 h-25' />
+                                            <img src={product?.productId?.productImg?.[0]?.url || userLogo} alt={product.name} className='w-25 h-25' />
                                             <div className='w-[280px]'>
                                                 <h1 className='font-semibold truncate'>{product?.productId?.productName}</h1>
                                                 <p>{product?.productId?.productPrice} ₫</p>
@@ -92,10 +92,10 @@ const Cart = () => {
                                             <Button onClick={() => handleUpdateQuantity(product.productId._id, 'increase')} variant='outline'>+</Button>
                                         </div>
                                         <p>{(product?.productId?.productPrice) * (product?.quantity)} ₫</p>
-                                        <p onClick={()=> handleRemove(product?.productId?._id)} className='text-red-500 items-center gap-1 cursor-pointer'> <Trash2 className='w-4 h-4'/>  Remove</p>
-                                        
+                                        <p onClick={() => handleRemove(product?.productId?._id)} className='text-red-500 items-center gap-1 cursor-pointer'> <Trash2 className='w-4 h-4' />  Remove</p>
+
                                     </div>
-                                </Card> 
+                                </Card>
                             })}
                         </div>
                         <div>
@@ -116,28 +116,29 @@ const Cart = () => {
                                         <span>Tax</span>
                                         <span>{tax} ₫</span>
                                     </div>
-                                    
-                                    <Separator/>
+
+                                    <Separator />
                                     <div className='flex justify-between font-bold text-lg'>
                                         <span>Total</span>
                                         <span>{total.toLocaleString('en-US')} ₫</span>
-                                    </div>      
+                                    </div>
                                     <div className='space-y-3 pt-4'>
                                         <div className='flex space-x-2'>
                                             <Input placeholder='Promo code' />
                                             <Button variant='outline'>Apply</Button>
                                         </div>
-                                        <Button onClick={()=> navigate('/address')} className='bg-pink-600 text-white w-full'>PLACE ORDER</Button>
+                                        <Button onClick={() => navigate('/address'
+                                        )} className='bg-pink-600 text-white w-full'>PLACE ORDER</Button>
                                         <Button variant='outline' className='w-full'>
                                             <Link to='/products'>CONTINUE SHOPPING</Link>
-                                        </Button>                 
-                                    </div>                          
-                                <div className='text-sm text-muted-foreground pt-4'>
-                                    <p>* Free shipping on orders over 500,000 ₫</p>
-                                    <p>* 30-day return policy</p>
-                                    <p>* 24/7 customer support</p>
-                                </div>
-                                    
+                                        </Button>
+                                    </div>
+                                    <div className='text-sm text-muted-foreground pt-4'>
+                                        <p>* Free shipping on orders over 500,000 ₫</p>
+                                        <p>* 30-day return policy</p>
+                                        <p>* 24/7 customer support</p>
+                                    </div>
+
                                 </CardContent>
                             </Card>
                         </div>

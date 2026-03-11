@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { addAddress, deleteAddress, setSelectAddress } from '@/redux/productSlice'
+import { addAddress, deleteAddress, setCart, setSelectAddress } from '@/redux/productSlice'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import axios from 'axios'
 const AddressForm = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -20,10 +20,47 @@ const AddressForm = () => {
   })
   const { cart, addresses, selectedAddress } = useSelector((store => store.product))
   const [showForm, setShowForm] = useState(addresses?.length > 0 ? false : true)
+  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
+
+  const handlePayment = async () => {
+    if (loading) return
+    try {
+      setLoading(true)
+      if (selectedAddress === null) {
+        alert("Please select address")
+        setLoading(false)
+        return
+      }
+      const accessToken = localStorage.getItem("accessToken")
+      if (!accessToken) {
+        alert("Please login first")
+        setLoading(false)
+        return
+      }
+      const res = await axios.post(
+        "http://localhost:8000/api/v1/payment/create-payment",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      )
+      const paymentUrl = res.data?.paymentUrl
+      if (paymentUrl) {
+        window.location.href = paymentUrl
+        
+      }
+    } catch (error) {
+      console.error(error)
+      setLoading(false)
+    }
+  }
+
   const handleSave = () => {
     dispatch(addAddress(formData))
     setShowForm(false)
@@ -146,8 +183,12 @@ const AddressForm = () => {
                   })
                 }
                 <Button variant='outline' className="w-full" onClick={() => setShowForm(true)}>+Add New Address</Button>
-                <Button className="w-full bg-pink-600" disable={selectedAddress === null}>
-                  Proceed To Checkout
+                <Button
+                  className="w-full bg-pink-600"
+                  disabled={selectedAddress === null || loading}
+                  onClick={handlePayment}
+                >
+                  {loading ? "Processing..." : "Proceed To Checkout"}
                 </Button>
               </div>
             )
@@ -164,23 +205,23 @@ const AddressForm = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className='flex justify-between'>
-                <span>Subtotal ({cart.items.length}) items</span>
-                <span>{subtotal.toLocaleString("en-In")} ₫</span>
+                <span>Subtotal ({cart?.items?.length}) items</span>
+                <span>{subtotal.toLocaleString("en-Us")} ₫</span>
               </div>
 
               <div className='flex justify-between'>
                 <span>Shipping </span>
-                <span>{shipping.toLocaleString("en-In")} ₫</span>
+                <span>{shipping.toLocaleString("en-Us")} ₫</span>
               </div>
 
               <div className='flex justify-between'>
                 <span>Tax</span>
-                <span>{tax.toLocaleString("en-In")} ₫</span>
+                <span>{tax.toLocaleString("en-Us")} ₫</span>
               </div>
               <Separator />
               <div className='flex justify-between font-bold text-lg'>
                 <span>ToTal</span>
-                <span>{total.toLocaleString("en-In")} ₫</span>
+                <span>{total.toLocaleString("en-Us")} ₫</span>
               </div>
               <div className='text-sm text-muted-foreground pt-4'>
                 <p>* Free shipping on orders over 500,000 ₫</p>
