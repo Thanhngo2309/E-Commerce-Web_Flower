@@ -34,7 +34,7 @@ const OrderSuccess = () => {
           </button>
 
           <button
-            onClick={() => navigate("/orders")}
+            onClick={() => navigate("/cart")}
             className="w-full border border-gray-300 py-3 rounded-xl hover:bg-gray-100 transition"
           >
             View My Orders
