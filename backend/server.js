@@ -7,6 +7,7 @@ import userRoute from './routes/userRoute.js'
 import productRoute from './routes/productRoute.js'
 import cartRoute from './routes/cartRoute.js'
 import cors from 'cors'
+import aiRoute from "./routes/ai.js";
 import paymentRoute from "./routes/paymentRoute.js"
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -24,6 +25,7 @@ app.use(cors({
 app.use('/api/v1/user', userRoute)
 app.use('/api/v1/product', productRoute)
 app.use('/api/v1/cart', cartRoute)
+app.use('/api/ai', aiRoute)
 app.use("/api/v1/payment", paymentRoute)
 app.listen(PORT,()=>{
     connectDB()
